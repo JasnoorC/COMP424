@@ -8,24 +8,142 @@
           <span class="text-primary"><i class="fa fa-lock"></i> Register</span>
         </h1>
 
-        <form (submit)="onSubmit()">
+        <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" (submit)="bolbcheer()">
+          <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input
+                type="text"
+                class="form-control"
+                name="firstName"
+                #userFirstName="ngModel"
+                [ngClass]="{'is-invalid':userFirstName.errors && userFirstName.touched}"
+                [(ngModel)]="user.firstName"
+                minlength="2"
+                required 
+              >
+              <div [hidden]="!userFirstName.errors?.required" class="invalid-feedback">
+                First name required!
+              </div>
+
+              <div [hidden]="!userFirstName.errors?.minlength" class="invalid-feedback">
+                First name must have at least two characters.
+              </div>
+          </div>
 
           <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input
+                type="text"
+                class="form-control"
+                name="lastName"
+                #userLastName="ngModel"
+                [ngClass]="{'is-invalid':userLastName.errors && userLastName.touched}"
+                [(ngModel)]="user.lastName"
+                minlength="2"
+                required 
+              >
+              <div [hidden]="!userLastName.errors?.required" class="invalid-feedback">
+                Last name required!
+              </div>
+  
+              <div [hidden]="!userLastName.errors?.minlength" class="invalid-feedback">
+                Last name must have at least two characters.
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label for="birthDate">Birthdate</label>
+              <input
+                type="text"
+                class="form-control"
+                name="birthDate"
+                #userBirthDate="ngModel"
+                [ngClass]= "{'is-invalid':userBirthDate.errors && userBirthDate.touched}"
+                [(ngModel)]="user.birthDate"
+                minlength="8"
+                required 
+              >
+              <div [hidden]="!userBirthDate.errors?.required" class="invalid-feedback">
+                  Birthdate required!
+              </div>
+  
+              <div [hidden]="!userBirthDate.errors?.minlength" class="invalid-feedback">
+                    Birthdate must have at least 8 characters (ex: 0/0/0000).
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label for="phone">Phone</label>
+              <input
+                type="text"
+                class="form-control"
+                name="phone"
+                #userPhone="ngModel"
+                [ngClass]="{'is-invalid':userPhone.errors && userPhone.touched}"
+                [(ngModel)]="user.phone"
+                minlength="10"
+                required 
+              >
+              <div [hidden]="!userPhone.errors?.required" class="invalid-feedback">
+                  Phone number required!
+              </div>
+  
+              <div [hidden]="!userPhone.errors?.minlength" class="invalid-feedback">
+                  Phone number must have 10 characters (ex: 1112225555).
+              </div>
+          </div>
+            
+          <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" name="email" [(ngModel)]="email" class="form-control" required>
+            <input 
+              type="email" 
+              name="email" 
+              #userEmail="ngModel"
+              [ngClass]="{ 'is-invalid': userEmail.errors && userEmail.touched}"
+              [(ngModel)]="user.email" 
+              class="form-control" 
+              pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+              required
+              >
+              <div [hidden]="!userEmail.errors?.required" class="invalid-feedback">
+                  Email required!
+              </div>
+        
+              <div [hidden]="!userEmail.errors?.pattern" class="invalid-feedback">
+                  Must be in email format (ex: example@example.com)
+              </div>
           </div>
 
           <div class="form-group">
               <label for="password">Password</label>
-              <input type="password" name="password" [(ngModel)]="password" class="form-control" required>
+              <input 
+              type="password" 
+              name="password" 
+              [(ngModel)]="password" 
+              class="form-control" 
+              required>
           </div>
+          
+          <div class="form-group">
+            <ngx-recaptcha2 #captchaElem
+              [siteKey]="siteKey"
+              (reset)="handleReset()"
+              (expire)="handleExpire()"
+              (load)="handleLoad()"
+              (success)="handleSuccess($event)"
+              [useGlobalDomain]="useGlobalDomain"
+              [size]="size"
+              [hl]="lang"
+              [theme]="theme"
+              [type]="type"
+              formControlName="recaptcha">
+            </ngx-recaptcha2>
 
-          <input type="submit" value="Register" class="btn btn-primary btn-block">
-
+            <input type="submit" value="Register" *ngIf="captchaSuccess" class="btn mt-3 btn-primary btn-block">
+            <input type="submit" value="Register" *ngIf="!captchaSuccess" class="btn mt-3 btn-secondary btn-block" disabled>
+          </div>
         </form>
-
       </div>
     </div>
-    
   </div>
 </div>

@@ -19,6 +19,10 @@ import { AuthService } from "./services/auth.service";
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { DownloadFileComponent } from './components/download-file/download-file.component';
 import { SettingsService } from './services/settings.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgxCaptchaModule } from 'ngx-captcha';
+import { RecaptchaComponent } from './components/recaptcha/recaptcha.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,8 @@ import { SettingsService } from './services/settings.service';
     RegisterComponent,
     NotFoundComponent,
     HomepageComponent,
-    DownloadFileComponent
+    DownloadFileComponent,
+    RecaptchaComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +44,11 @@ import { SettingsService } from './services/settings.service';
     AngularFirestoreModule,
     AngularFireAuthModule,
     FormsModule,
-    FlashMessagesModule.forRoot()
+    FlashMessagesModule.forRoot(),
+    ReactiveFormsModule,
+    NgxCaptchaModule
   ],
-  providers: [AuthService, SettingsService],
+  providers: [AuthService, SettingsService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

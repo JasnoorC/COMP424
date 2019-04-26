@@ -14,7 +14,21 @@
               <label for="password">Password</label>
               <input type="password" name="password" [(ngModel)]="password" class="form-control" required>
           </div>
-          <input type="submit" value="Login" class="btn btn-primary btn-block">
+          <ngx-recaptcha2 #captchaElem
+            [siteKey]="siteKey"
+            (reset)="handleReset()"
+            (expire)="handleExpire()"
+            (load)="handleLoad()"
+            (success)="handleSuccess($event)"
+            [useGlobalDomain]="useGlobalDomain"
+            [size]="size"
+            [hl]="lang"
+            [theme]="theme"
+            [type]="type"
+            formControlName="recaptcha">
+          </ngx-recaptcha2>
+          <input type="submit" value="Login" *ngIf="captchaSuccess" class="btn mt-3 btn-primary btn-block">
+          <input type="submit" value="Login" *ngIf="!captchaSuccess" class="btn mt-3 btn-secondary btn-block" disabled>
         </form>
       </div>
     </div>  

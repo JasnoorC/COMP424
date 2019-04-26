@@ -15,7 +15,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent, canActivate:[RegisterGuard]},
   {path: 'download', component: DownloadFileComponent, canActivate:[AuthGuard]},
-  {path: '**', component: NotFoundComponent},
+  {path: '**', component: NotFoundComponent, canActivate:[AuthGuard]},
 ];
 
 @NgModule({
