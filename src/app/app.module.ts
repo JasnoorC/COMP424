@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FlashMessagesModule } from 'angular2-flash-messages';
-
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatProgressBarModule} from '@angular/material';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -23,6 +24,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { RecaptchaComponent } from './components/recaptcha/recaptcha.component';
 import { UserService } from './services/user.service';
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+import { MatPasswordStrengthComponent } from './mat-password-strength/mat-password-strength.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,8 @@ import { UserService } from './services/user.service';
     NotFoundComponent,
     HomepageComponent,
     DownloadFileComponent,
-    RecaptchaComponent
+    RecaptchaComponent,
+    MatPasswordStrengthComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +50,13 @@ import { UserService } from './services/user.service';
     FormsModule,
     FlashMessagesModule.forRoot(),
     ReactiveFormsModule,
-    NgxCaptchaModule
+    NgxCaptchaModule,
+    MatPasswordStrengthModule,
+    MatPasswordStrengthModule.forRoot(),
+    BrowserModule.withServerTransition({appId: '@angular-material-    extensions/password-strength-demo-id'}),  
+    BrowserAnimationsModule,
+    FormsModule,
+    MatProgressBarModule,
   ],
   providers: [AuthService, SettingsService, UserService],
   bootstrap: [AppComponent]

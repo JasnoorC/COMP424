@@ -1,15 +1,20 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../models/User';
 import { UserService } from '../../services/user.service';
+import {Title} from '@angular/platform-browser';
+import {MatSlideToggleChange} from '@angular/material';
+import {MatPasswordStrengthComponent} from '@angular-material-extensions/password-strength';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterComponent implements OnInit {
   user: User = {
